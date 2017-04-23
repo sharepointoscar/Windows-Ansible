@@ -5,4 +5,3 @@ $error[0]|format-list -force
 $srv = new-Object Microsoft.SqlServer.Management.Smo.Server("(local)")
 $db = New-Object Microsoft.SqlServer.Management.Smo.Database($srv, "Ansible Demo DB")
 $db.Create()
-
