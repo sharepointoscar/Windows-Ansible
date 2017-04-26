@@ -1,5 +1,5 @@
 require 'serverspec'
-require 'pathname'
+require 'pathname3'
 require 'net/ssh'
 
 include SpecInfra::Helper::Ssh

@@ -6,18 +6,18 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "oscar-ansible-windows2016"
   config.vm.box = "sharepointoscar/windows_2016_virtualbox"
-
-  config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
-
   config.vm.hostname = "windows2016"
   config.vm.communicator = "winrm"
 
+  # credentials
   config.winrm.username = "vagrant"
   config.winrm.password = "vagrant"
 
   config.vm.guest = :windows
+  config.vm.communicator = "winrm"
   config.windows.halt_timeout = 35
 
+  config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
   config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
   config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
 
@@ -60,5 +60,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
     ansible.playbook = "./windows/enable-iis.yml"
+    #ansible.playbook = "./windows/get-features-not-installed.yml"
+  end
+
+  config.vm.provision :serverspec do |spec|
+      spec.pattern = 'spec/oscar-ansible-windows2016/check_features_spec.rb'
   end
 end

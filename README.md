@@ -12,3 +12,6 @@ Here is how you build the virtualbox box using packer by specifying the template
 ```bash
 packer build --only=virtualbox-iso windows_2016.json
 ```
+
+# Running Tests
+First, vagrant-serverspec is required, you can install it by executing `vagrant plugin install `vagrant-serverspec`

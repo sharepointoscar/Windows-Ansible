@@ -1,0 +1,14 @@
+---
+# This playbook installs and enables IIS on Windows hosts
+
+- name: Check Installed Features
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check Features
+      win_feature:
+        name: NET-Framework-45-ASPNET
+        when:
+          state is absent
+        include_sub_features: yes
+        include_management_tools: yes
